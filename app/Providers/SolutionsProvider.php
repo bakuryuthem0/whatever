@@ -9,16 +9,14 @@ class SolutionsProvider {
 		$solution = Solutions::find($id);
 		return $solutions;
 	}
-	public static function create($data) {
-		$solution = new Solutions;
-		$solution->title = $data;
-		if($solution->save()) {
-			return true;
+	public static function create($title, $problem_id) {
+		foreach($title as $key => $value) {
+			$solution = new Solutions;
+			$solution->title = $value;
+			if($solution->save()) {
+				$solution->problems()->attach($problem_id);
+			}
 		}
-	}
-	public static function linkProblem($problem_id) {
-		$solution = new Solutions;
-		$solution->problem()->attach($problem_id);
 		return true;
 	}
 }

@@ -18,6 +18,68 @@ class HomeController extends Controller
     {
         return view('index');
     }
+    public function internal()
+    {
+        return view('internal');
+    }
+    public function create(Request $request) {
+    	// Define function varibales
+    	if(empty($request->solutions) || empty($request->problem) || (empty($request->category) && empty($request->new_category)) || empty($request->symptoms) && empty($request->new_symptoms))
+    	{
+    		return false;
+    	}
+        else
+        {
+            $category_id = false;
+            $problem_id = false;
+            // Check if new or existing category
+            if(isset($request->new_category))
+            {
+                // Send to category
+                $category_id = CategoryProvider::create($request->new_category, $request->type);
+            }
+            else 
+            {   
+                $category_id = $request->category;
+            }
+            // Send to problem and return problem id
+            $problem_id = ProblemsProvider::create($request->problem);
+            if(!$problem_id) 
+            {
+                return "Could not add problem";
+            }
+            // Send to solution
+            if(!SolutionsProvider::create($request->solutions, $problem_id)) 
+            {
+                return "Could not add solutions";
+            }
+            // check if existing symptoms
+
+            if(isset($request->new_symptoms) && is_array($request->new_symptoms))
+            {
+                // Send to symptoms
+                if(!SymptomsProvider::create($request->new_symptoms, $category_id, $problem_id))
+                {
+                    return "Could not add symptoms";
+                }
+            }
+            else 
+            {
+                // Send to problems to append
+                if(!ProblemsProvider::linkSymptoms($problem_id,$request->symptoms))
+                {
+                    return "Could not add symptoms to problems";
+                }
+            }
+            return json_encode([
+              'status'  => 'success',
+              'message' => 'Knowledge created successfully'
+            ]);
+        }
+    }
+    public function modify(Request $request) {
+
+    }
     public function getCategory($type) {
     	$category = CategoryProvider::getByType($type);
     	if($category)

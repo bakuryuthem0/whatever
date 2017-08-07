@@ -13,8 +13,8 @@ class symptomsSeed extends Seeder
     {	
     	for($i=0;$i<10;$i++){
 	        DB::table('symptoms')->insert([
-	            'category_id' => rand(1,5),
-	            'title' => str_random(100),
+	            'category_id' => rand(1,10),
+	            'title' => str_random(10),
 	        ]);
 	    }
     }

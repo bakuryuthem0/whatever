@@ -13,6 +13,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
   </head>
 
   <body>
@@ -30,48 +32,45 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 heading-padding">
             <h2 class="text-center">Issue Identification</h2>
+            <hr class="for-h2">
         </div>
         <hr>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h2>Type of Issue</h2>
+            <h5>Type of Issue</h5>
             <a href="" class="btn btn-info type" data-id="1">Software</a>
-            <br>
-            <a href="" class="btn btn-success type" data-id="2">Hardware</a>
+            <a href="" class="btn btn-success type pull-right" data-id="2">Hardware</a>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h2>Category</h2>
-            <ul style="list-style-type: none;display: none; overflow: hidden" id="category">
-            </ul>
-       </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h2>Symptoms</h2>
-            <div style="display: none; overflow: hidden" id="symptoms">
-            </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <h5>Category</h5>
+            <ul id="category"></ul>
         </div>
       </div>
-
-      <hr>
-
+      <div class="margin20"">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h5>Symptoms</h5>
+              <div id="symptoms"></div>
+          </div>
+        </div>
+      </div>
+      <section class="margin50">
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 heading-padding">
             <h2 class="text-center">Solution Identification</h2>
+            <hr class="for-h2">
         </div>
         <hr>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h2>Problem</h2>
-            <div style="display: none" id="problems">
-                
-            </div>
+            <h5>Problem</h5>
+            <div id="problems"></div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-          <h2>Solution</h2>
-            <div style="display: none; overflow: hidden" id="solution">
-            </div>
+            <h5>Solution</h5>
+            <div id="solution" class="box"></div>
         </div>
       </div>
-
+      </section>
       <hr>
-
       <footer>
         <p class="text-center">&copy; Issues Expert System 2017. All Rights Reserved.</p>
       </footer>
@@ -87,6 +86,12 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(e){
+          $('#category').hide();
+          $('#symptoms').hide();
+          $('#problems').hide();
+          $('#solution').hide();
+        });
         $(".type").click(function(e){
             e.preventDefault();
             $.ajax({
@@ -102,6 +107,9 @@
                         toAppend = toAppend + '<li><a href="" class="category" data-id="'+data.data[i]['id']+'">'+data.data[i]['title']+'</a></li>';
                     }
                     $('#category').show().html(toAppend);
+                    $('#symptoms').hide();
+                    $('#problems').hide();
+                    $('#solution').hide();
                   }
                   else {
                     alert(data.message);
@@ -120,13 +128,22 @@
                   // updating the dom
                   if (data.status == 'success') {
                     // update the dom
-                    var toAppend = "<form class='form'";
+                    var toAppend = "<form class='form'>";
                     for(i=0;i<data.data.length;i++) {
                         toAppend = toAppend + '<div class="col-md-12"><input type="checkbox" class="col-md-2 col-xs-2" name="symptoms[]" value='+data.data[i]['id']+'> <label class="col-md-10 col-xs-12 pull-right" style="overflow:hidden">'+data.data[i]['title']+'</label></div>';
                     }
-                    toAppend = toAppend + '<button class="btn btn-primary symptoms">Find Problem</button>'+
-                    '</form>';
+                    if(data.data.length > 0)
+                    {
+                        toAppend = toAppend + '<button class="btn btn-primary symptoms">Find Problem</button>';
+                    }
+                    else 
+                    {
+                        toAppend = toAppend + '<h4 class="text-center"><strong>No symptoms found</strong></h4>';
+                    }
+                    toAppend = toAppend + '</form>';
                     $('#symptoms').show().html(toAppend);
+                    $('#problems').hide();
+                    $('#solution').hide();
                   }
                   else {
                     alert(data.message);
@@ -148,9 +165,10 @@
                   // updating the dom
                   if (data.status == 'success') {
                     // updating the dom
-                    toAppend = '<p>This is a very big problem now. It would not be asyi sdk hjbkjhfk ajhbj efjqwbab hjvjdvsa ahjsdbjahbs asjb </p>'+
-                                '<a href="" class="problems" data-id="'+data.data.id+'">Show solution</a>';
+                    toAppend = '<p>'+data.data.title+'</p>'+
+                                '<a href="" class="btn btn-primary problems" data-id="'+data.data.id+'">Show solution</a>';
                     $('#problems').show().html(toAppend);
+                    $('#solution').hide();
                   }
                   else {
                     alert(data.message);
@@ -158,7 +176,6 @@
                 },
                 error: function error(data) {}
             });
-            $('#problems').show();
         });
         $("#problems").on('click','.problems',function(e){
             e.preventDefault();

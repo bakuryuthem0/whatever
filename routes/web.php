@@ -12,7 +12,10 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/internal', 'HomeController@internal');
 Route::get('/type/{type}/category', 'HomeController@getCategory');
 Route::get('/category/{category}/symptoms', 'HomeController@getSymptoms');
 Route::get('/symptoms/problems', 'HomeController@getProblems');
 Route::get('/problems/{problem}/solution', 'HomeController@getSolutions');
+Route::get('/create-knowledge', 'HomeController@create');
+Route::get('/modify-knowledge', 'HomeController@modify');

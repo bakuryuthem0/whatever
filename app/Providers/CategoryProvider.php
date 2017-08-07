@@ -11,16 +11,12 @@ class CategoryProvider {
 	public static function getByType($type) {
 		return Category::where("type",$type)->get();
 	}
-	public static function create($data) {
+	public static function create($title,$type) {
 		$cat = new Category;
-		$cat->title = $data;
+		$cat->title = $title;
+		$cat->type = $type;
 		if($cat->save()) {
-			return true;
+			return $cat->id;
 		}
-	}
-	public static function linkProblem($problem_id) {
-		$cat = new Category;
-		$cat->problem()->attach($problem_id);
-		return true;
 	}
 }

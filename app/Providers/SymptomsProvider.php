@@ -15,6 +15,7 @@ class SymptomsProvider {
 	}
 	public static function getProblems($symptoms) {
 		$arrProblems = [];
+		$problem_id = false;
 		//go through each symptom and get all the problems it points to
 		foreach($symptoms as $s) {
 			$var = Symptoms::find($s);
@@ -25,7 +26,6 @@ class SymptomsProvider {
 				}
 			}
 		}
-
 		//count how many times each problem occurs
 		$problemsCount = array_count_values($arrProblems);
 		//sort the array from least to most frequent
@@ -35,17 +35,16 @@ class SymptomsProvider {
 		//return the problem
 		return Problems::find($problem_id);
 	}
-	public static function create($data) {
-		$var = new Symptoms;
-		$var->title = $data['title'];
-		$var->type= $data['type'];
-		if($var->save()) {
-			return true;
+	public static function create($title, $category_id, $problem_id) {
+		// Loop through the title as it is an array of titles for new symptoms
+		foreach($title as $key => $value) {
+			$var = new Symptoms;
+			$var->title = $value;
+			$var->category_id= $category_id;
+			if($var->save()) {
+				$var->problems()->attach($problem_id);
+			}
 		}
-	}
-	public static function linkProbelms($problem_id) {
-		$var = new Symptoms;
-		$var->problem()->attach($problem_id);
 		return true;
 	}
 }

@@ -9,20 +9,27 @@ class ProblemsProvider {
 		$var = Problems::find($id);
 		return $var;
 	}
-	public static function create($data) {
+	public static function create($title) {
 		$var = new Problems;
-		$var->title = $data;
+		$var->title = $title;
 		if($var->save()) {
-			return true;
+			return $var->id;
 		}
-	}
-	public static function linkSolution($solution_id) {
-		$var = new Problems;
-		$var->problem()->attach($solution_id);
-		return true;
+		return false;
 	}
 	public static function getSolutions($id) {
 		$var = Problems::find($id);
 		return $var->solutions;
+	}
+	public static function linkSymptoms($id, $symptoms) {
+		$var = Problems::find($id);
+		dd($symptoms);
+		foreach($symptoms as $key => $value) {
+			if(!$var->symptoms()->attach($symptoms))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }
