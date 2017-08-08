@@ -31,6 +31,23 @@ class SymptomsProvider {
 		//sort the array from least to most frequent
 		asort($problemsCount);
 		//get the most frequent in the array and then get it's key => problem_id
+		$max = reset($problemsCount);
+		foreach ($problemsCount as $key => $value) {
+			if($max < $value) {
+				$max = $value;
+			}
+		}
+		$search = self::arraysearch($max, $problemsCount);
+		$c = count(array_intersect($search,$problemsCount));
+		$sKey = 0;
+		if($c != count($problemsCount)){
+			$sKey = $search[rand(0, (count($search)-1))];
+			$problem_id = array_search($sKey, $problemsCount);
+		}
+		else {
+			$problem_id array_rand($problemsCount);
+		}
+
 		$problem_id = array_search(end($problemsCount), $problemsCount);
 		//return the problem
 		return Problems::find($problem_id);
@@ -54,4 +71,13 @@ class SymptomsProvider {
 			
 		 
 	}
+	public static function arraysearch($var, $array){
+		$arr = [];
+    	foreach ($array as $key => $value) {
+			if($value == $var) {
+				$arr[] = $value;
+			}
+		}
+		return $arr;
+    }
 }
