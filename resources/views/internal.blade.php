@@ -214,21 +214,9 @@
         });
         $(document).on('click','#save',function(e){
           e.preventDefault();
-          var solutions = document.querySelectorAll('.solutions');
-          var symptoms = document.querySelectorAll('.symptoms')
-          for (i = 0; i < solutions.length; i++) {
-              if(solutions[i].value == "") {
-                alert("You have incomplete solution fields");
-                return;
-              }
-          }
-          for (i = 0; i < symptoms.length; i++) {
-              if(symptoms[i].value == "") {
-                alert("You have incomplete symptoms fields");
-                return;
-              }
-          }
+            console.log("clicked for saving");
               var formData = $('form').serializeArray();
+              console.log("saving data"+formData);
               $.ajax({
                   url: '/create-knowledge',
                   data: formData,
@@ -236,6 +224,7 @@
                   type: 'GET',
                   success: function success(data) {
                     // updating the dom
+                    console.log(data);
                     if (data.status == 'success') {
                       // updating the dom
                       alert(data.message);
@@ -244,7 +233,9 @@
                       alert(data.message);
                     }
                   },
-                  error: function error(data) {}
+                  error: function error(data) {
+                    console.log(data);
+                  }
               });
         });
         $(document).ready(function() {

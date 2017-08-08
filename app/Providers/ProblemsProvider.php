@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Model\Problems;
+use App\Model\Symptoms;
 
 class ProblemsProvider {
 	public static function get($id) {
@@ -24,10 +25,7 @@ class ProblemsProvider {
 	public static function linkSymptoms($id, $symptoms) {
 		$var = Problems::find($id);
 		foreach($symptoms as $key => $value) {
-			if(!$var->symptoms()->attach($symptoms))
-			{
-				return false;
-			}
+			$var->symptoms()->attach($value);
 		}
 		return true;
 	}

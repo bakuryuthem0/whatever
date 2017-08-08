@@ -194,7 +194,7 @@
                   if (data.status == 'success') {
                     var toAppend = "";
                     for(i=0;i<data.data.length;i++) {
-                        toAppend = toAppend + '<p class="box">'+data.data[i]['title']+'</p>';
+                        toAppend = toAppend + '<p class="box"><strong>Probable Solution '+(i+1)+':</strong><br>'+data.data[i]['title']+'</p>';
                         console.log(toAppend);
                     }
                     $('#solution').show().html(toAppend);

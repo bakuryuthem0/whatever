@@ -28,7 +28,7 @@ class HomeController extends Controller
     }
     public function create(Request $request) {
     	// Define function varibales
-    	if(empty($request->solutions) || empty($request->problem) || (empty($request->category) && empty($request->new_category)) || empty($request->symptoms) && empty($request->new_symptoms))
+    	if(empty($request->solutions) || empty($request->problem) || (empty($request->category) && empty($request->new_category)))
     	{
     		return false;
     	}
@@ -59,7 +59,7 @@ class HomeController extends Controller
             }
             // check if existing symptoms
 
-            if(isset($request->new_symptoms) && is_array($request->new_symptoms))
+            if(isset($request->new_symptoms) && !empty($request->new_symptoms))
             {
                 // Send to symptoms
                 if(!SymptomsProvider::create($request->new_symptoms, $category_id, $problem_id))
