@@ -17,6 +17,8 @@ class ProblemSolutionsTable extends Migration
             $table->increments('id');
             $table->integer('problem_id');
             $table->integer('solution_id');
+            $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
+            $table->foreign('solution_id')->references('id')->on('solutions')->onDelete('cascade');
             $table->timestamps();
         });
     }

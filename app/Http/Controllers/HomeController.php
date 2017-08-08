@@ -22,6 +22,10 @@ class HomeController extends Controller
     {
         return view('internal');
     }
+    public function delete()
+    {
+        return view('deletepage');
+    }
     public function create(Request $request) {
     	// Define function varibales
     	if(empty($request->solutions) || empty($request->problem) || (empty($request->category) && empty($request->new_category)) || empty($request->symptoms) && empty($request->new_symptoms))
@@ -147,5 +151,69 @@ class HomeController extends Controller
 	            'message'	=>	'No possible solution found'
 	          ]);
 	    }
+    }
+    public function deleteProblem($id) {
+        $delete = ProblemsProvider::delete($id);
+        if($delete)
+        {
+            return json_encode([
+                'status'    =>  'success',
+                'message'   =>  'Problem deleted'
+              ]);
+        }
+        else {
+            return json_encode([
+                'status'    =>  'error',
+                'message'   =>  'Problem could not be deleted'
+              ]);
+        }
+    }
+    public function deleteSymptom($id) {
+        $delete = SymptomsProvider::delete($id);
+        if($delete)
+        {
+            return json_encode([
+                'status'    =>  'success',
+                'message'   =>  'Symptom deleted'
+              ]);
+        }
+        else {
+            return json_encode([
+                'status'    =>  'error',
+                'message'   =>  'Symptom could not be deleted'
+              ]);
+        }
+    }
+    public function deleteSolution($id) {
+        $delete = SolutionsProvider::delete($id);
+        if($delete)
+        {
+            return json_encode([
+                'status'    =>  'success',
+                'message'   =>  'Solution deleted'
+              ]);
+        }
+        else {
+            return json_encode([
+                'status'    =>  'error',
+                'message'   =>  'Solution could not be deleted'
+              ]);
+        }
+    }
+    public function deleteCategory($id) {
+        $delete = CategoryProvider::delete($id);
+        if($delete)
+        {
+            return json_encode([
+                'status'    =>  'success',
+                'message'   =>  'Category deleted'
+              ]);
+        }
+        else {
+            return json_encode([
+                'status'    =>  'error',
+                'message'   =>  'Category could not be deleted'
+              ]);
+        }
     }
 }

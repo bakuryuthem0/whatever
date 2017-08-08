@@ -14,11 +14,11 @@ class Solutions extends Eloquent{
      * @var array
      */
     protected $fillable = [
-        'title',
+        'title','problems_id',
     ];
     public $timestamps = true;
 
     public function problems() {
-        return $this->belongsToMany('App\Model\Problems', 'problem_solution', 'solution_id', 'problem_id');
+        return $this->belongsTo('App\Model\Problems');
     }
 }

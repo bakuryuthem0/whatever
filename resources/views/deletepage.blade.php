@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>pcAdvisory</title>
+    <title>pcAdvisory | Removal Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,14 +18,6 @@
   </head>
 
   <body>
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3 text-center">Welcome To pcAdvisory</h1>
-        <p class="text-center">This is a simple expert system designed to help computer users detech issues with either their hardware or software problems</p>
-      </div>
-    </div>
 
     <div class="container">
       <!-- Example row of columns -->
@@ -106,7 +98,7 @@
                     if(data.data.length > 0)
                     {
                       for(i=0;i<data.data.length;i++) {
-                          toAppend = toAppend + '<li><a href="" class="category" data-id="'+data.data[i]['id']+'">'+data.data[i]['title']+'</a></li>';
+                          toAppend = toAppend + '<li><span class="col-md-11 col-xs-11"><a href="" class="category" data-id="'+data.data[i]['id']+'">'+data.data[i]['title']+'</a></span><span class="col-md-1 col-xs-1 pull-right"><a href="" class="btn-danger close" data-name="category" data-id="'+data.data[i]['id']+'">x</a></span></li>';
                       }
                     }
                     else{
@@ -136,7 +128,7 @@
                     // update the dom
                     var toAppend = "<form class='form'>";
                     for(i=0;i<data.data.length;i++) {
-                        toAppend = toAppend + '<div class="col-md-12"><input type="checkbox" class="col-md-2 col-xs-2" name="symptoms[]" value='+data.data[i]['id']+'> <label class="col-md-10 col-xs-12 pull-right" style="overflow:hidden">'+data.data[i]['title']+'</label></div>';
+                        toAppend = toAppend + '<div class="col-md-12"><input type="checkbox" class="col-md-2 col-xs-2" name="symptoms[]" value='+data.data[i]['id']+'> <label class="col-md-9 col-xs-9 pull-right" style="overflow:hidden">'+data.data[i]['title']+'</label><span class="col-md-1 col-xs-1 pull-right"><a href="" class="btn-danger close" data-name="symptom" data-id="'+data.data[i]['id']+'">x</a></span></div>';
                     }
                     if(data.data.length > 0)
                     {
@@ -171,8 +163,8 @@
                   // updating the dom
                   if (data.status == 'success') {
                     // updating the dom
-                    toAppend = '<p>'+data.data.title+'</p>'+
-                                '<a href="" class="btn btn-primary problems" data-id="'+data.data.id+'">Show solution</a>';
+                    toAppend = '<p>'+data.data.title+'<span class="col-md-1 col-xs-1 pull-right"><a href="" class=" btn-danger close" data-name="problem" data-id="'+data.data.id+'">x</a></span></p>'+
+                                '<p><a href="" class="btn btn-primary problems" data-id="'+data.data.id+'">Show solution</a></p>';
                     $('#problems').show().html(toAppend);
                     $('#solution').hide();
                   }
@@ -194,10 +186,46 @@
                   if (data.status == 'success') {
                     var toAppend = "";
                     for(i=0;i<data.data.length;i++) {
-                        toAppend = toAppend + '<p>'+data.data[i]['title']+'</p>';
+                        toAppend = toAppend + '<p><span class="col-md-11 col-xs-11">'+data.data[i]['title']+'</span><span class="col-md-1 col-xs-1 pull-right"><a href="" class="btn-danger close" data-name="solution" data-id="'+data.data[i]['id']+'">x</a></span></p>';
                         console.log(toAppend);
                     }
                     $('#solution').show().html(toAppend);
+                  }
+                  else {
+                    alert(data.message);
+                  }
+                },
+                error: function error(data) {}
+            });
+        });
+        $(document).on('click','.close',function(e){
+          e.preventDefault();
+          var attname = $(this).attr('data-name');
+          var elem = $(this)
+          $.ajax({
+                url: '/delete/'+attname+'/'+$(this).attr('data-id'),
+                dataType: 'json',
+                type: 'GET',
+                success: function success(data) {
+                  // updating the dom
+                  if (data.status == 'success') {
+                    console.log($(this));
+                    $(elem).parent().parent().remove();
+                    $(elem).parent().remove();
+                    alert(data.message);
+                    if(attname == "problem") {
+                      $('#solution').html("")
+                      $('.problems').remove()
+                    }
+                    if(attname == "symptom") {
+                      $('#problems').html("")
+                      $('#solution').html("")
+                    }
+                    if(attname == "category") {
+                      $('#symptoms').html("")
+                      $('#problems').html("")
+                      $('#solution').html("")
+                    }
                   }
                   else {
                     alert(data.message);

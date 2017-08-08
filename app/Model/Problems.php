@@ -23,6 +23,6 @@ class Problems extends Eloquent{
     }
 
     public function solutions() {
-        return $this->belongsToMany('App\Model\Solutions', 'problem_solution', 'problem_id', 'solution_id');
+        return $this->hasMany('App\Model\Solutions');
     }
 }

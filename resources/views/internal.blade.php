@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Expert System | Internal</title>
+    <title>pcAdvisory | Internal</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1 class="display-3 text-center">Knowledge Creator</h1>
-        <p class="text-center">Create the knowledge for <strong>Issue Expert</strong> here</p>
+        <p class="text-center">Create the knowledge for <strong>pcAdvisory</strong> here</p>
       </div>
     </div>
 
@@ -68,15 +68,14 @@
             <div class="col-md-12"><input type="button" id="more-solutions" value="Add Solutions"></div>
           </div>
         </div>
-        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-          <button class="btn btn-primary" id="save">Save</button>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12 save">
         </div>
       </form>
 
       <hr>
 
       <footer>
-        <p class="text-center">&copy; Issues Expert System 2017. All Rights Reserved.</p>
+        <p class="text-center">&copy; pcAdvisory System 2017. All Rights Reserved.</p>
       </footer>
     </div> <!-- /container -->
 
@@ -196,12 +195,12 @@
         });
         $("#solutions").on('click','#more-solutions',function(e){
             $('#solutions').children('#solutions-list').append('<div class="form-inline"><input name="solutions[]" class="form-control solutions col-md-11" placeholder="What is the solutions?" required="true"><input type="button" class="close input-group-addon col-md-1" value="x"></div>');
-            $('#save').show();
+            $('.save').html('<button class="btn btn-primary" id="save">Save</button>');
         });
         $("#solutions").on('keyup','.solutions',function(e){
           if(e.which == "13")
             {
-            $('#save').show();
+            $('.save').html('<button class="btn btn-primary" id="save">Save</button>');
             $('#solutions').children('#solutions-list').append('<div class="form-inline"><input name="solutions[]" class="form-control solutions col-md-11" placeholder="What is the solutions?" required="true"><input type="button" class="close input-group-addon col-md-1" value="x"></div>');
           }
         });
@@ -213,7 +212,7 @@
         $('form').submit(function(e){
           e.preventDefault();
         });
-        $("#save").click(function(e){
+        $(document).on('click','#save',function(e){
           e.preventDefault();
             if($('.solutions').val() !== null) {
               var formData = $('form').serializeArray();

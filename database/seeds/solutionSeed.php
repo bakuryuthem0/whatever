@@ -13,7 +13,8 @@ class solutionSeed extends Seeder
     {	
     	for($i=0;$i<10;$i++){
 	        DB::table('solutions')->insert([
-	            'title' => str_random(10),
+                'title' => str_random(10),
+	            'problems_id' => rand(1,10),
 	        ]);
 	    }
     }

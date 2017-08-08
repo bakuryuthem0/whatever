@@ -17,6 +17,8 @@ class ProblemSymptomsTable extends Migration
             $table->increments('id');
             $table->integer('problem_id');
             $table->integer('symptom_id');
+            $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
+            $table->foreign('symptom_id')->references('id')->on('symptoms')->onDelete('cascade');
             $table->timestamps();
         });
     }

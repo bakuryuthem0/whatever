@@ -47,4 +47,11 @@ class SymptomsProvider {
 		}
 		return true;
 	}
+	public static function delete($id) {
+		$var = Symptoms::find($id);
+		$var->problems()->detach();
+		return $var->delete();
+			
+		 
+	}
 }

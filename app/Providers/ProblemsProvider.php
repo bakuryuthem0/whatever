@@ -23,7 +23,6 @@ class ProblemsProvider {
 	}
 	public static function linkSymptoms($id, $symptoms) {
 		$var = Problems::find($id);
-		dd($symptoms);
 		foreach($symptoms as $key => $value) {
 			if(!$var->symptoms()->attach($symptoms))
 			{
@@ -31,5 +30,10 @@ class ProblemsProvider {
 			}
 		}
 		return true;
+	}
+	public static function delete($id) {
+		$var = Problems::find($id);
+		$var->symptoms()->detach();
+		return $var->delete();
 	}
 }
