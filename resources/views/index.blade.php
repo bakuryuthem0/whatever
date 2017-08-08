@@ -66,7 +66,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <h5>Solution</h5>
-            <div id="solution" class="box"></div>
+            <div id="solution"></div>
         </div>
       </div>
       </section>
@@ -194,7 +194,7 @@
                   if (data.status == 'success') {
                     var toAppend = "";
                     for(i=0;i<data.data.length;i++) {
-                        toAppend = toAppend + '<p>'+data.data[i]['title']+'</p>';
+                        toAppend = toAppend + '<p class="box">'+data.data[i]['title']+'</p>';
                         console.log(toAppend);
                     }
                     $('#solution').show().html(toAppend);

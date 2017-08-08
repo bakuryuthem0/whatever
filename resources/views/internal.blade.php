@@ -26,7 +26,7 @@
     </div>
 
     <div class="container">
-      <form class="form-horizontal">
+      <form class="form-horizontal" action="/create-knowledge">
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
           <div class="row">
               <label class="col-md-2">1. Type of Issue</label>
@@ -214,7 +214,20 @@
         });
         $(document).on('click','#save',function(e){
           e.preventDefault();
-            if($('.solutions').val() !== null) {
+          var solutions = document.querySelectorAll('.solutions');
+          var symptoms = document.querySelectorAll('.symptoms')
+          for (i = 0; i < solutions.length; i++) {
+              if(solutions[i].value == "") {
+                alert("You have incomplete solution fields");
+                return;
+              }
+          }
+          for (i = 0; i < symptoms.length; i++) {
+              if(symptoms[i].value == "") {
+                alert("You have incomplete symptoms fields");
+                return;
+              }
+          }
               var formData = $('form').serializeArray();
               $.ajax({
                   url: '/create-knowledge',
@@ -233,7 +246,14 @@
                   },
                   error: function error(data) {}
               });
+        });
+        $(document).ready(function() {
+          $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
             }
+          });
         });
     </script>
 
