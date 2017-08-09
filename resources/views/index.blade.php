@@ -16,60 +16,71 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
   </head>
-
   <body>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-3 text-center">Welcome To pcAdvisory</h1>
+        <div class="centralize">
+          <img src="img/logo.png" class="img img-responsive" alt="pcAdvisory"></div>
         <p class="text-center">This is a simple expert system designed to help computer users detech issues with either their hardware or software problems</p>
       </div>
     </div>
 
     <div class="container">
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 heading-padding">
-            <h2 class="text-center">Issue Identification</h2>
-            <hr class="for-h2">
-        </div>
-        <hr>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h5>Type of Issue</h5>
-            <a href="" class="btn btn-info type" data-id="1">Software</a>
-            <a href="" class="btn btn-success type pull-right" data-id="2">Hardware</a>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <h5>Category</h5>
-            <ul id="category"></ul>
-        </div>
-      </div>
-      <div class="margin20"">
+      <div class="col-md-8 offset-md-2">
         <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 heading-padding">
+              <h2 class="text-center">Issue Identification</h2>
+              <hr class="for-h2">
+          </div>
+          <hr>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <h5>Symptoms</h5>
-              <div id="symptoms"></div>
+              <h5>Type of Issue</h5>
+              <a href="" class="btn btn-info type" data-id="1">Software</a>
+              <a href="" class="btn btn-success type pull-right" data-id="2">Hardware</a>
           </div>
         </div>
-      </div>
-      <section class="margin50">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 heading-padding">
-            <h2 class="text-center">Solution Identification</h2>
-            <hr class="for-h2">
+        <hr>
+        <div class="margin20"">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h5>Category</h5>
+                <ol id="category"></ol>
+            </div>
+          </div>
         </div>
         <hr>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h5>Problem</h5>
-            <div id="problems"></div>
+        <div class="margin20"">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h5>Symptoms</h5>
+                <div id="symptoms"></div>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <h5>Solution</h5>
-            <div id="solution"></div>
-        </div>
+        <hr>
+        <section alt="Solution Identification">
+          <div class="margin20"">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h5>Problem</h5>
+                  <div id="problems"></div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="margin20"">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h5>Solution</h5>
+                  <div id="solution"></div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      </section>
       <hr>
       <footer>
         <p class="text-center">&copy; pcAvisory System 2017. All Rights Reserved.</p>
@@ -136,7 +147,7 @@
                     // update the dom
                     var toAppend = "<form class='form'>";
                     for(i=0;i<data.data.length;i++) {
-                        toAppend = toAppend + '<div class="col-md-12"><input type="checkbox" class="col-md-2 col-xs-2" name="symptoms[]" value='+data.data[i]['id']+'> <label class="col-md-10 col-xs-12 pull-right" style="overflow:hidden">'+data.data[i]['title']+'</label></div>';
+                        toAppend = toAppend + '<div class="form-inline"><input type="checkbox" class="right-10" name="symptoms[]" value='+data.data[i]['id']+'><label style="overflow:hidden">'+data.data[i]['title']+'</label></div>';
                     }
                     if(data.data.length > 0)
                     {

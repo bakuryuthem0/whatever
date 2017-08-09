@@ -45,7 +45,7 @@ class SymptomsProvider {
 			$problem_id = array_search($sKey, $problemsCount);
 		}
 		else {
-			$problem_id array_rand($problemsCount);
+			$problem_id = array_rand($problemsCount);
 		}
 
 		$problem_id = array_search(end($problemsCount), $problemsCount);
