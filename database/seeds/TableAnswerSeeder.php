@@ -66,21 +66,58 @@ class TableAnswerSeeder extends Seeder
         	[
         		'respuesta'		=> 'Carne',
 				'pregunta'		=> '5',
-				'siguiente'		=> '90'
+				'siguiente'		=> '6'
         	],
         	[
         		'respuesta'		=> 'Vegetariano',
 				'pregunta'		=> '5',
-				'siguiente'		=> '6'
+				'siguiente'		=> '7'
         	],
         	[
         		'respuesta'		=> 'Mixto',
 				'pregunta'		=> '5',
-				'siguiente'		=> '7'
+				'siguiente'		=> '8'
         	],
         	[
-
-        	]
+        		'respuesta'		=> 'Pescado',
+				'pregunta'		=> '6',
+				'siguiente'		=> '16'
+        	],
+        	[
+        		'respuesta'		=> 'Pollo',
+				'pregunta'		=> '6',
+				'siguiente'		=> '17'
+        	],
+        	[
+        		'respuesta'		=> 'Cerdo',
+				'pregunta'		=> '6',
+				'siguiente'		=> '18'
+        	],
+        	[
+        		'respuesta'		=> 'Comida rapida',
+				'pregunta'		=> '6',
+				'siguiente'		=> '18'
+        	],
+        	[
+        		'respuesta'		=> 'Vegano',
+        		'pregunta'		=> 7,
+        		'siguiente'		=> 20
+        	],
+        	[
+        		'respuesta'		=> 'vegetariano',
+        		'pregunta'		=> 7,
+        		'siguiente'		=> 21
+        	],
+        	[
+        		'respuesta'		=> 'Comdda rapida',
+        		'pregunta'		=> 8,
+        		'siguiente'		=> 22
+        	],
+        	[
+        		'respuesta'		=> 'restaurant',
+        		'pregunta'		=> 8,
+        		'siguiente'		=> 23
+        	],
         ]);
     }
 }
