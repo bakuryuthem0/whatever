@@ -12,7 +12,7 @@ class TableQuestionSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('answers')->insert([
+        DB::table('questions')->insert([
         	[
         		'id'		=> 1,
 	        	'pregunta'	=> 'Que te gustaria',
@@ -47,7 +47,7 @@ class TableQuestionSeeder extends Seeder
         		'id'		=> 7,
         		'pegunta'   => 'Vegano o vegetariano',
         		'solucion'	=> 0
-        	]
+        	],
         	[
         		'id'		=> 8,
         		'pregunta'  => 'Comida rapida o restaurant',
