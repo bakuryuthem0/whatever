@@ -4,26 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Model\Question;
 use App\Model\Bussines;
+use App\Model\Answer;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-	public function index(Request $request)
+	public function index(Request $request, $id = null)
     {
-        if($request->has('id')) {
-            $id = $request->input('id');
-            $
+        if(!is_null($id)) {
+            $aid = Answer::where('siguiente','=', $id)->first()->id;
         }else {
             $id = 1;
             $aid = -1;
         }
 
         $preguntas = Question::with('answers:respuesta,pregunta,siguiente')->find($id);
-        $bussines  = Bussines::with('images')->whereHas('answers',function($answers) use($aid) {
+        return $preguntas;
+        $bussines  = Bussines::with('images')
+        /*->whereHas('answers', function($answers) use($aid) {
             if($aid != -1) {
-                $answers->where('answers_id', '=', $aid);
+                $answers->where('answer_id', '=', $aid);
             }
-        })->get();
+        })
+        */
+        ->get();
+        return $bussines;
         return view('index');
     }
 }
