@@ -14,7 +14,7 @@ class CreateBussinesAnswerTable extends Migration
     public function up()
     {
         //
-        Schema::create('bussines_answer', function (Blueprint $table) {
+        Schema::create('answer_bussines', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('bussines_id');
             $table->integer('answer_id');
@@ -31,6 +31,6 @@ class CreateBussinesAnswerTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('bussines_answer');
+        Schema::dropIfExists('answer_bussines');
     }
 }
